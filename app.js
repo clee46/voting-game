@@ -1,5 +1,4 @@
- var photoCollect = [];
-
+var photoCollect = [];
 
 function Photo (name, path) {
   this.name = name;
@@ -15,7 +14,6 @@ calcRandom = function () {
 calcNewIndex = function (index1) {
   do {
     var index2 = calcRandom();
-    console.log(index2);
   } while (index1 === index2)
   return index2;
 }
@@ -33,17 +31,23 @@ var twitter = new Photo('Twitter', 'img/twitter.png');
 var wikipedia = new Photo('Wikipedia', 'img/wikipedia.png');
 var youtube = new Photo('YouTube', 'img/youtube.png');
 
-var index1 = calcRandom();
-console.log('Index 1: ' + index1);
+displayPhotos = function () {
+  var index1 = calcRandom();
+  var index2 = calcNewIndex(index1);
 
-var index2 = calcNewIndex(index1);
-console.log('Index 2: ' + index2);
+  var picture1 = document.getElementById('img1');
+  picture1.setAttribute('src', photoCollect[index1].path);
+  picture1.setAttribute('width', '300');
+  picture1.addEventListener('click', displayPhotos);
+  document.body.appendChild(picture1);
 
-var picture1 = document.createElement('p');
-picture1.innerHTML = '<img src="' + photoCollect[index1].path + '" width="300"/>';
-document.body.appendChild(picture1);
+  var picture2 = document.getElementById('img2');
+  picture2.setAttribute('src', photoCollect[index2].path);
+  picture2.setAttribute('width', '300');
+  picture2.addEventListener('click', displayPhotos);
+  document.body.appendChild(picture2);
+}
+displayPhotos();
 
-var picture2 = document.createElement('p');
-picture2.innerHTML = '<img src="' + photoCollect[index2].path + '" width="300"/>';
-document.body.appendChild(picture2);
+
 
