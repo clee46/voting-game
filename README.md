@@ -1,1 +1,2 @@
-# voting-game
+# Voting Game for Week 3
+
