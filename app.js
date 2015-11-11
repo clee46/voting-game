@@ -1,17 +1,6 @@
 var photoCollect = [];
-var amazon = new Photo('Amazon', 'img/amazon.png');
-var dropbox = new Photo('Dropbox', 'img/dropbox.png');
-var ebay = new Photo('eBay', 'img/eBay.png');
-var facebook = new Photo('Facebook', 'img/facebook.png');
-var github = new Photo('GitHub', 'img/github.png');
-var google = new Photo('Google', 'img/google.png');
-var linkedin = new Photo('LinkedIn', 'img/linkedin.png');
-var netflix = new Photo('Netflix', 'img/netflix.png');
-var reddit = new Photo('Reddit', 'img/reddit.png');
-var twitter = new Photo('Twitter', 'img/twitter.png');
-var wikipedia = new Photo('Wikipedia', 'img/wikipedia.png');
-var youtube = new Photo('YouTube', 'img/youtube.png');
 var photoTracker = new Tracker(photoCollect);
+var sites = ['Amazon', 'Dropbox', 'eBay', 'Facebook', 'GitHub', 'Google', 'LinkedIn', 'Netflix', 'Reddit', 'Twitter', 'Wikipedia', 'YouTube'];
 
 function Photo (site, path) {
   this.site = site;
@@ -25,73 +14,58 @@ function Tracker (photoCollect) {
   this.box1 = document.getElementById('box1');
   this.box2 = document.getElementById('box2');
 
+  this.createAlbum = function () {
+    for (var i = 0; i < sites.length; i++) {
+      var path = 'img/' + sites[i] + '.png';
+      new Photo(sites[i], path);
+    }
+  }
   this.calcRandom = function () {
     return Math.floor(Math.random() * this.photoCollect.length);
   }
-
   this.calcNewIndex = function (index1) {
     do {
       var index2 = this.calcRandom();
     } while (index1 === index2)
     return index2;
   }
-
   this.displayPhotos = function () {
     var index1 = this.calcRandom();
     var index2 = this.calcNewIndex(index1);
 
     this.picture1 = document.createElement('img');
-    this.picture2 = document.createElement('img');
-
-    this.caption1 = document.createElement('h1');
-    this.caption2 = document.createElement('h1');
-
-    this.caption1.setAttribute('id','caption1');
-    this.caption2.setAttribute('id','caption2');
-
-    this.caption1.textContent = 'Click to vote for ' + this.photoCollect[index1].site;
-    this.caption2.textContent = 'Click to vote for ' + this.photoCollect[index2].site;
-
-    this.picture1.setAttribute('id','img1');
     this.picture1.setAttribute('src', this.photoCollect[index1].path);
-
-    this.picture2.setAttribute('id','img2');
-    this.picture2.setAttribute('src', this.photoCollect[index2].path);
-
+    this.picture1.addEventListener('click', function(){photoTracker.vote(index1)});
+    this.caption1 = document.createElement('h1');
+    this.caption1.textContent = 'Click to vote for ' + this.photoCollect[index1].site;
     this.box1.appendChild(this.caption1);
     this.box1.appendChild(this.picture1);
 
+    this.picture2 = document.createElement('img');
+    this.picture2.setAttribute('src', this.photoCollect[index2].path);
+    this.picture2.addEventListener('click', function(){photoTracker.vote(index2)});
+    this.caption2 = document.createElement('h1');
+    this.caption2.textContent = 'Click to vote for ' + this.photoCollect[index2].site;
     this.box2.appendChild(this.caption2);
     this.box2.appendChild(this.picture2);
-
-    this.picture1.addEventListener('click', function(){photoTracker.vote(index1)});
-    this.picture2.addEventListener('click', function(){photoTracker.vote(index2)});
-    // skillsChart.update();
   }
-
   this.vote = function (index) {
     var currentVote = document.getElementById('currentVote');
     currentVote.innerHTML = 'You voted for ' + this.photoCollect[index].site;
     document.body.appendChild(currentVote);
-
-    console.log(this.photoCollect[index].site + ' had ' + this.photoCollect[index].votes + ' votes.');
     this.photoCollect[index].votes++;
-    console.log(this.photoCollect[index].site + ' now has ' + this.photoCollect[index].votes + ' votes.');
-
     this.updateChart(index);
-
     this.box1.innerHTML = null;
     this.box2.innerHTML = null;
-
     this.displayPhotos();
   }
-
   this.updateChart = function (index) {
     skillsChart.segments[index].value = this.photoCollect[index].votes;
     skillsChart.update();
   }
 }
 
+photoTracker.createAlbum();
 var kevin = [
   {
     value: 1,
@@ -166,17 +140,10 @@ var kevin = [
     highlight: 'rgba(215,11,29,0.5)'
   }
 ];
-
 var context = document.getElementById('results').getContext('2d');
 var skillsChart = new Chart(context).Pie(kevin, {
-    //Number - Amount of animation steps
     animationSteps : 100,
-    //String - Animation easing effect
     animationEasing : "easeOutBounce",
-    //Boolean - Whether we animate the rotation of the Doughnut
-    animateRotate : false,
-    //Boolean - Whether we animate scaling the Doughnut from the centre
-    animateScale : true,
     scaleShowLabelBackdrop : true
 });
 skillsChart.segments[0].value = this.photoCollect[0].votes;
