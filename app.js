@@ -1,21 +1,22 @@
 var photoCollect = [];
-var amazon = new Photo('Amazon', 'img/amazon.png');
-var dropbox = new Photo('Dropbox', 'img/dropbox.png');
-var ebay = new Photo('eBay', 'img/eBay.png');
-var facebook = new Photo('Facebook', 'img/facebook.png');
-var github = new Photo('GitHub', 'img/github.png');
-var google = new Photo('Google', 'img/google.png');
-var linkedin = new Photo('LinkedIn', 'img/linkedin.png');
-var netflix = new Photo('Netflix', 'img/netflix.png');
-var reddit = new Photo('Reddit', 'img/reddit.png');
-var twitter = new Photo('Twitter', 'img/twitter.png');
-var wikipedia = new Photo('Wikipedia', 'img/wikipedia.png');
-var youtube = new Photo('YouTube', 'img/youtube.png');
+var amazon = new Photo('Amazon', 'img/amazon.png', '#baddad');
+var dropbox = new Photo('Dropbox', 'img/dropbox.png', '#baddad');
+var ebay = new Photo('eBay', 'img/eBay.png', '#baddad');
+var facebook = new Photo('Facebook', 'img/facebook.png', '#baddad');
+var github = new Photo('GitHub', 'img/github.png', '#baddad');
+var google = new Photo('Google', 'img/google.png', '#baddad');
+var linkedin = new Photo('LinkedIn', 'img/linkedin.png', '#baddad');
+var netflix = new Photo('Netflix', 'img/netflix.png', '#baddad');
+var reddit = new Photo('Reddit', 'img/reddit.png', '#baddad');
+var twitter = new Photo('Twitter', 'img/twitter.png', '#baddad');
+var wikipedia = new Photo('Wikipedia', 'img/wikipedia.png', '#baddad');
+var youtube = new Photo('YouTube', 'img/youtube.png', '#baddad');
 var photoTracker = new Tracker(photoCollect);
 
-function Photo (site, path) {
+function Photo (site, path, siteColor) {
   this.site = site;
   this.path = path;
+  this.siteColor = siteColor;
   this.votes = 0;
   photoCollect.push(this);
 }
@@ -24,6 +25,8 @@ function Tracker (photoCollect) {
   this.photoCollect = photoCollect;
   this.box1 = document.getElementById('box1');
   this.box2 = document.getElementById('box2');
+  this.kevin = [];
+
 
   this.calcRandom = function () {
     return Math.floor(Math.random() * this.photoCollect.length);
@@ -66,6 +69,7 @@ function Tracker (photoCollect) {
 
     this.picture1.addEventListener('click', function(){photoTracker.vote(index1)});
     this.picture2.addEventListener('click', function(){photoTracker.vote(index2)});
+    // skillsChart.update();
   }
 
   this.vote = function (index) {
@@ -77,26 +81,132 @@ function Tracker (photoCollect) {
     this.photoCollect[index].votes++;
     console.log(this.photoCollect[index].site + ' now has ' + this.photoCollect[index].votes + ' votes.');
 
+    this.updateChart(index);
+
     this.box1.innerHTML = null;
     this.box2.innerHTML = null;
 
     this.displayPhotos();
   }
+
+  this.updateChart = function (index) {
+    this.kevin.push({
+      value: photoCollect[index].votes,
+      label: photoCollect[index].site,
+      color: photoCollect[index].siteColor
+    })
+    var context = document.getElementById('results').getContext('2d');
+    var skillsChart = new Chart(context).Pie(this.kevin, {
+        //Number - Amount of animation steps
+        animationSteps : 100,
+        //String - Animation easing effect
+        animationEasing : "easeOutBounce",
+        //Boolean - Whether we animate the rotation of the Doughnut
+        animateRotate : false,
+        //Boolean - Whether we animate scaling the Doughnut from the centre
+        animateScale : true,
+        scaleShowLabelBackdrop : true
+    });
+
+    // skillsChart.addData({
+    //   value: photoCollect[index].votes,
+    //   label: photoCollect[index].site
+    //   // color: '#811BD6',
+    //   // highlight: '#811B33'
+    // });
+    // var context = document.getElementById("results").getContext("2d");
+
+    // var skillsChart = new Chart(context).Pie(kevin, {
+    //     //Number - Amount of animation steps
+    //     animationSteps : 100,
+    //     //String - Animation easing effect
+    //     animationEasing : "easeOutBounce",
+    //     //Boolean - Whether we animate the rotation of the Doughnut
+    //     animateRotate : false,
+    //     //Boolean - Whether we animate scaling the Doughnut from the centre
+    //     animateScale : true,
+    //     scaleShowLabelBackdrop : true
+    // });
+  }
 }
 
-photoTracker.displayPhotos();
 
-// var resultsData = {
-//   labels : ["Amazon","Dropbox","eBay","Facebook","GitHub","Google","LinkedIn","Netflix","Reddit","Twitter","Wikipedia","YouTube"],
-//   datasets : [
-//     {
-//       fillColor : "rgba(172,194,132,0.4)",
-//       strokeColor : "#ACC26D",
-//       pointColor : "#fff",
-//       pointStrokeColor : "#9DB86D",
-//       data : [203,156,99,251,305,247,203,156,99,251,305,247]
-//     }
-//   ]
-// }
-// var results = document.getElementById('results').getContext('2d');
-// new Chart(results).Line(resultsData);
+
+// var kevin = [
+//   {
+//     value: photoCollect[0].votes,
+//     label: photoCollect[0].site,
+//     color: '#811BD6',
+//     highlight: '#811B33'
+//   },
+//   {
+//     value: photoCollect[1].votes,
+//     label: photoCollect[1].site,
+//     color: '#9CBABA',
+//     highlight: '#9CBA99'
+//   },
+//   {
+//     value: photoCollect[2].votes,
+//     label: photoCollect[2].site,
+//     color: '#D18177',
+//     highlight: '#D18133'
+//   },
+//   {
+//     value : photoCollect[3].votes,
+//     label: photoCollect[3].site,
+//     color: '#6AE128',
+//     highlight: '#6AE199'
+//   },
+//   {
+//     value: photoCollect[4].votes,
+//     label: photoCollect[4].site,
+//     color: '#811BD6',
+//     highlight: '#811B33'
+//   },
+//   {
+//     value: photoCollect[5].votes,
+//     label: photoCollect[5].site,
+//     color: '#9CBABA',
+//     highlight: '#9CBA99'
+//   },
+//   {
+//     value: photoCollect[6].votes,
+//     label: photoCollect[6].site,
+//     color: '#D18177',
+//     highlight: '#D18133'
+//   },
+//   {
+//     value: photoCollect[7].votes,
+//     label: photoCollect[7].site,
+//     color: '#811BD6',
+//     highlight: '#811B33'
+//   },
+//   {
+//     value: photoCollect[8].votes,
+//     label: photoCollect[8].site,
+//     color: '#9CBABA',
+//     highlight: '#9CBA99'
+//   },
+//   {
+//     value: photoCollect[9].votes,
+//     label: photoCollect[9].site,
+//     color: '#D18177',
+//     highlight: '#D18133'
+//   },
+//   {
+//     value: photoCollect[10].votes,
+//     label: photoCollect[10].site,
+//     color: '#811BD6',
+//     highlight: '#811B33'
+//   },
+//   {
+//     value: photoCollect[11].votes,
+//     label: photoCollect[11].site,
+//     color: '#9CBABA',
+//     highlight: '#9CBA99'
+//   }
+// ];
+
+
+
+  photoTracker.displayPhotos();

@@ -1,7 +1,10 @@
+
 section {
   height: 250px;
 }
 #box1 {
+  width: 300px;
+  height: 200px;
   float: left;
   position: absolute;
   margin-left: 200px;
@@ -9,6 +12,8 @@ section {
   padding: 20px 20px;
 }
 #box2 {
+  width: 300px;
+  height: 200px;
   float: right;
   position: relative;
   margin-right: 200px;
@@ -19,9 +24,19 @@ section {
   width: 300px;
 }
 header, #currentVote {
-  color: blue;
+  color: #055F00;
   text-align: center;
+}
+body {
+  background: url('img/background.jpg');
+  background-size: 100%;
+  font-family: 'Dosis';
+  /*background-position: 50% 50%;*/
 }
 #img1:hover, #img2:hover {
   opacity: 0.5;
+}
+
+#results {
+  margin: 100px 100px;
 }
