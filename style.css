@@ -1,3 +1,9 @@
+@font-face {
+    font-family: Starjedi;
+    src: url('fonts/STARWARS.woff');
+}
+
+
 
 section {
   height: 250px;
@@ -22,21 +28,29 @@ section {
 }
 #img1, #img2, #caption1, #caption2 {
   width: 300px;
+  text-align: center;
 }
-header, #currentVote {
+#currentVote {
+  font-family: 'Dosis';
   color: #055F00;
   text-align: center;
 }
 body {
   background: url('img/background.jpg');
   background-size: 100%;
-  font-family: 'Dosis';
-  /*background-position: 50% 50%;*/
+}
+header {
+  text-align: center;
+  font-family: 'Starjedi';
+  font-size: 30px;
+  text-transform: uppercase;
+  color: #000;
+  text-shadow: -1px 0 #FFF100, 0 1px #FFF100, 1px 0 #FFF100, 0 -1px #FFF100;
 }
 #img1:hover, #img2:hover {
   opacity: 0.5;
 }
-
 #results {
-  margin: 100px 100px;
+  margin: 100px 320px;
+  opacity: 0.5;
 }

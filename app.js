@@ -1,22 +1,21 @@
 var photoCollect = [];
-var amazon = new Photo('Amazon', 'img/amazon.png', '#baddad');
-var dropbox = new Photo('Dropbox', 'img/dropbox.png', '#baddad');
-var ebay = new Photo('eBay', 'img/eBay.png', '#baddad');
-var facebook = new Photo('Facebook', 'img/facebook.png', '#baddad');
-var github = new Photo('GitHub', 'img/github.png', '#baddad');
-var google = new Photo('Google', 'img/google.png', '#baddad');
-var linkedin = new Photo('LinkedIn', 'img/linkedin.png', '#baddad');
-var netflix = new Photo('Netflix', 'img/netflix.png', '#baddad');
-var reddit = new Photo('Reddit', 'img/reddit.png', '#baddad');
-var twitter = new Photo('Twitter', 'img/twitter.png', '#baddad');
-var wikipedia = new Photo('Wikipedia', 'img/wikipedia.png', '#baddad');
-var youtube = new Photo('YouTube', 'img/youtube.png', '#baddad');
+var amazon = new Photo('Amazon', 'img/amazon.png');
+var dropbox = new Photo('Dropbox', 'img/dropbox.png');
+var ebay = new Photo('eBay', 'img/eBay.png');
+var facebook = new Photo('Facebook', 'img/facebook.png');
+var github = new Photo('GitHub', 'img/github.png');
+var google = new Photo('Google', 'img/google.png');
+var linkedin = new Photo('LinkedIn', 'img/linkedin.png');
+var netflix = new Photo('Netflix', 'img/netflix.png');
+var reddit = new Photo('Reddit', 'img/reddit.png');
+var twitter = new Photo('Twitter', 'img/twitter.png');
+var wikipedia = new Photo('Wikipedia', 'img/wikipedia.png');
+var youtube = new Photo('YouTube', 'img/youtube.png');
 var photoTracker = new Tracker(photoCollect);
 
-function Photo (site, path, siteColor) {
+function Photo (site, path) {
   this.site = site;
   this.path = path;
-  this.siteColor = siteColor;
   this.votes = 0;
   photoCollect.push(this);
 }
@@ -25,8 +24,6 @@ function Tracker (photoCollect) {
   this.photoCollect = photoCollect;
   this.box1 = document.getElementById('box1');
   this.box2 = document.getElementById('box2');
-  this.kevin = [];
-
 
   this.calcRandom = function () {
     return Math.floor(Math.random() * this.photoCollect.length);
@@ -90,123 +87,97 @@ function Tracker (photoCollect) {
   }
 
   this.updateChart = function (index) {
-    this.kevin.push({
-      value: photoCollect[index].votes,
-      label: photoCollect[index].site,
-      color: photoCollect[index].siteColor
-    })
-    var context = document.getElementById('results').getContext('2d');
-    var skillsChart = new Chart(context).Pie(this.kevin, {
-        //Number - Amount of animation steps
-        animationSteps : 100,
-        //String - Animation easing effect
-        animationEasing : "easeOutBounce",
-        //Boolean - Whether we animate the rotation of the Doughnut
-        animateRotate : false,
-        //Boolean - Whether we animate scaling the Doughnut from the centre
-        animateScale : true,
-        scaleShowLabelBackdrop : true
-    });
-
-    // skillsChart.addData({
-    //   value: photoCollect[index].votes,
-    //   label: photoCollect[index].site
-    //   // color: '#811BD6',
-    //   // highlight: '#811B33'
-    // });
-    // var context = document.getElementById("results").getContext("2d");
-
-    // var skillsChart = new Chart(context).Pie(kevin, {
-    //     //Number - Amount of animation steps
-    //     animationSteps : 100,
-    //     //String - Animation easing effect
-    //     animationEasing : "easeOutBounce",
-    //     //Boolean - Whether we animate the rotation of the Doughnut
-    //     animateRotate : false,
-    //     //Boolean - Whether we animate scaling the Doughnut from the centre
-    //     animateScale : true,
-    //     scaleShowLabelBackdrop : true
-    // });
+    skillsChart.segments[index].value = this.photoCollect[index].votes;
+    skillsChart.update();
   }
 }
 
+var kevin = [
+  {
+    value: 1,
+    label: photoCollect[0].site,
+    color: 'rgb(253,134,9)',
+    highlight: 'rgba(253,134,9,0.5)'
+  },
+  {
+    value: photoCollect[1].votes,
+    label: photoCollect[1].site,
+    color: 'rgb(13,102,223)',
+    highlight: 'rgba(13,102,223,0.5)'
+  },
+  {
+    value: photoCollect[2].votes,
+    label: photoCollect[2].site,
+    color: 'rgb(117,174,19)',
+    highlight: 'rgba(117,174,19,0.5)'
+  },
+  {
+    value : photoCollect[3].votes,
+    label: photoCollect[3].site,
+    color: 'rgb(45,68,134)',
+    highlight: 'rgba(45,68,134,0.5)'
+  },
+  {
+    value: photoCollect[4].votes,
+    label: photoCollect[4].site,
+    color: 'rgb(17,16,15)',
+    highlight: 'rgba(17,16,15,0.5)'
+  },
+  {
+    value: photoCollect[5].votes,
+    label: photoCollect[5].site,
+    color: 'rgb(226,44,41)',
+    highlight: 'rgba(226,44,41,0.5)'
+  },
+  {
+    value: photoCollect[6].votes,
+    label: photoCollect[6].site,
+    color: 'rgb(13,98,166)',
+    highlight: 'rgba(13,98,166,0.5)'
+  },
+  {
+    value: photoCollect[7].votes,
+    label: photoCollect[7].site,
+    color: 'rgb(167,10,28)',
+    highlight: 'rgba(167,10,28,0.5)'
+  },
+  {
+    value: photoCollect[8].votes,
+    label: photoCollect[8].site,
+    color: 'rgb(253,44,8)',
+    highlight: 'rgba(253,44,8,0.5)'
+  },
+  {
+    value: photoCollect[9].votes,
+    label: photoCollect[9].site,
+    color: 'rgb(46,191,255)',
+    highlight: 'rgba(46,191,255,0.5)'
+  },
+  {
+    value: photoCollect[10].votes,
+    label: photoCollect[10].site,
+    color: 'rgb(0,0,0)',
+    highlight: 'rgba(0,0,0,0.5)'
+  },
+  {
+    value: photoCollect[11].votes,
+    label: photoCollect[11].site,
+    color: 'rgb(215,11,29)',
+    highlight: 'rgba(215,11,29,0.5)'
+  }
+];
 
-
-// var kevin = [
-//   {
-//     value: photoCollect[0].votes,
-//     label: photoCollect[0].site,
-//     color: '#811BD6',
-//     highlight: '#811B33'
-//   },
-//   {
-//     value: photoCollect[1].votes,
-//     label: photoCollect[1].site,
-//     color: '#9CBABA',
-//     highlight: '#9CBA99'
-//   },
-//   {
-//     value: photoCollect[2].votes,
-//     label: photoCollect[2].site,
-//     color: '#D18177',
-//     highlight: '#D18133'
-//   },
-//   {
-//     value : photoCollect[3].votes,
-//     label: photoCollect[3].site,
-//     color: '#6AE128',
-//     highlight: '#6AE199'
-//   },
-//   {
-//     value: photoCollect[4].votes,
-//     label: photoCollect[4].site,
-//     color: '#811BD6',
-//     highlight: '#811B33'
-//   },
-//   {
-//     value: photoCollect[5].votes,
-//     label: photoCollect[5].site,
-//     color: '#9CBABA',
-//     highlight: '#9CBA99'
-//   },
-//   {
-//     value: photoCollect[6].votes,
-//     label: photoCollect[6].site,
-//     color: '#D18177',
-//     highlight: '#D18133'
-//   },
-//   {
-//     value: photoCollect[7].votes,
-//     label: photoCollect[7].site,
-//     color: '#811BD6',
-//     highlight: '#811B33'
-//   },
-//   {
-//     value: photoCollect[8].votes,
-//     label: photoCollect[8].site,
-//     color: '#9CBABA',
-//     highlight: '#9CBA99'
-//   },
-//   {
-//     value: photoCollect[9].votes,
-//     label: photoCollect[9].site,
-//     color: '#D18177',
-//     highlight: '#D18133'
-//   },
-//   {
-//     value: photoCollect[10].votes,
-//     label: photoCollect[10].site,
-//     color: '#811BD6',
-//     highlight: '#811B33'
-//   },
-//   {
-//     value: photoCollect[11].votes,
-//     label: photoCollect[11].site,
-//     color: '#9CBABA',
-//     highlight: '#9CBA99'
-//   }
-// ];
-
-
-
-  photoTracker.displayPhotos();
+var context = document.getElementById('results').getContext('2d');
+var skillsChart = new Chart(context).Pie(kevin, {
+    //Number - Amount of animation steps
+    animationSteps : 100,
+    //String - Animation easing effect
+    animationEasing : "easeOutBounce",
+    //Boolean - Whether we animate the rotation of the Doughnut
+    animateRotate : false,
+    //Boolean - Whether we animate scaling the Doughnut from the centre
+    animateScale : true,
+    scaleShowLabelBackdrop : true
+});
+skillsChart.segments[0].value = this.photoCollect[0].votes;
+photoTracker.displayPhotos();
