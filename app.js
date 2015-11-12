@@ -16,7 +16,6 @@ function Tracker (photoCollect) {
   this.box1 = document.getElementById('box1');
   this.box2 = document.getElementById('box2');
   this.box3 = document.getElementById('box3');
-  this.box4 = document.getElementById('box4');
 
   this.createAlbum = function () {
     for (var i = 0; i < sites.length; i++) {
@@ -74,13 +73,33 @@ function Tracker (photoCollect) {
   }
   this.showWinner = function () {
     var count = [];
+    var msg;
+
     for (var i = 0; i < this.photoCollect.length; i++) {
       count[i] = this.photoCollect[i].votes;
     }
-    var max = Math.max.apply(null, count);
-    var obj = this.photoCollect[count.indexOf(max)];
 
-    console.log('Current frontrunner is: ' + obj.site);
+    var max = Math.max.apply(null, count);
+    var temp = photoCollect.filter(function(itm){return itm.votes === max;});
+
+    if (temp.length === 1) {msg = 'The current leader is ' + temp[0].site + ' with ';}
+    else if (temp.length === 2) {msg = 'There is a tie between: <br>' + temp[0].site + ' and ' + temp[1].site + '.<br>Each has '}
+    else {
+      msg = 'There is a tie between: <br>' + temp[0].site;
+      for (var j = 1; j < temp.length; j++) {
+          if (j < temp.length - 1) {msg += ',<br>' + temp[j].site;}
+          else {msg += ', and ' + temp[j].site;}
+      }
+      msg += '.<br>Each has ';
+    }
+    if (temp[0].votes === 1) {msg += '1 vote';}
+    else {msg += temp[0].votes + ' votes'}
+
+    var result = document.getElementById('result');
+    result.innerHTML = msg;
+    if (temp.length === 1) {result.style.color = temp[0].siteColor;}
+    else {result.style.color = '#000';}
+    this.box3.appendChild(result);
   }
 }
 
