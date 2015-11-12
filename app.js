@@ -101,10 +101,12 @@ function Tracker (photoCollect) {
     else {result.style.color = '#000';}
     this.box3.appendChild(result);
   }
-  this.reset = function () {
-    this.photoCollect = [];
-    this.displayPhotos();
-  }
+  // this.reset = function () {
+  //   for (var i = 0; i < photoCollect.length; i++) {
+  //     photoCollect[i].votes = 0;
+  //   }
+  //   this.displayPhotos();
+  // }
 }
 
 photoTracker.createAlbum();
