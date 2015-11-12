@@ -82,7 +82,7 @@ function Tracker (photoCollect) {
     var max = Math.max.apply(null, count);
     var temp = photoCollect.filter(function(itm){return itm.votes === max;});
 
-    if (temp.length === 1) {msg = 'The current leader is ' + temp[0].site + ' with ';}
+    if (temp.length === 1) {msg = temp[0].site + ' is in the lead with ';}
     else if (temp.length === 2) {msg = 'There is a tie between: <br>' + temp[0].site + ' and ' + temp[1].site + '.<br>Each has '}
     else {
       msg = 'There is a tie between: <br>' + temp[0].site;
@@ -100,6 +100,10 @@ function Tracker (photoCollect) {
     if (temp.length === 1) {result.style.color = temp[0].siteColor;}
     else {result.style.color = '#000';}
     this.box3.appendChild(result);
+  }
+  this.reset = function () {
+    this.photoCollect = [];
+    this.displayPhotos();
   }
 }
 
