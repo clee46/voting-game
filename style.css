@@ -6,7 +6,7 @@ body {
   background: url('img/background.jpg');
   background-size: 100%;
 }
-header, footer {
+header, footer, #reset {
   color: #000;
   font-family: 'Starjedi';
   font-size: 40px;
@@ -22,6 +22,7 @@ footer {
   padding: 25px 5px;
 }
 section {
+  margin-top: 50px;
   height: 475px;
 }
 .container {
@@ -84,6 +85,16 @@ section {
   display: block;
   width: 375;
   height: 250;
+}
+#reset {
+  font-size: 20px;
+  border: 1px solid #000;
+  padding: 10px 10px;
+  margin: auto 50px;
+  text-transform: uppercase;
+}
+#reset:hover {
+  opacity: 0.5;
 }
 @media (max-width: 1120) {
   #box1 {
