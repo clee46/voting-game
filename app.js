@@ -53,28 +53,28 @@ var tracker = {
     var index2 = this.calcNewIndex(index1);
 
     // populate box1 with new random image/caption with event listener to vote
-    this.picture1 = document.createElement('img');
-    this.picture1.setAttribute('src', album[index1].path);
-    this.picture1.addEventListener('click', function(){tracker.vote(index1)});
+    picture1 = document.createElement('img');
+    picture1.setAttribute('src', album[index1].path);
+    picture1.addEventListener('click', function(){tracker.vote(index1)});
 
-    this.caption1 = document.createElement('h1');
-    this.caption1.textContent = 'Click to vote for ' + album[index1].site;
-    this.caption1.style.color = album[index1].siteColor;
+    caption1 = document.createElement('h1');
+    caption1.textContent = 'Click to vote for ' + album[index1].site;
+    caption1.style.color = album[index1].siteColor;
 
-    this.box1.appendChild(this.caption1);
-    this.box1.appendChild(this.picture1);
+    this.box1.appendChild(caption1);
+    this.box1.appendChild(picture1);
 
     // populate box2 with new random image/caption with event listener to vote
-    this.picture2 = document.createElement('img');
-    this.picture2.setAttribute('src', album[index2].path);
-    this.picture2.addEventListener('click', function(){tracker.vote(index2)});
+    picture2 = document.createElement('img');
+    picture2.setAttribute('src', album[index2].path);
+    picture2.addEventListener('click', function(){tracker.vote(index2)});
 
-    this.caption2 = document.createElement('h1');
-    this.caption2.textContent = 'Click to vote for ' + album[index2].site;
-    this.caption2.style.color = album[index2].siteColor;
+    caption2 = document.createElement('h1');
+    caption2.textContent = 'Click to vote for ' + album[index2].site;
+    caption2.style.color = album[index2].siteColor;
 
-    this.box2.appendChild(this.caption2);
-    this.box2.appendChild(this.picture2);
+    this.box2.appendChild(caption2);
+    this.box2.appendChild(picture2);
 
     // if local storage exists, retrieve it and display existing chart/msg
     if (localStorage.msg) {
@@ -171,6 +171,7 @@ var tracker = {
   },
   reset: function () {
     localStorage.clear();
+    location.reload();
   }
 }
 
@@ -183,3 +184,6 @@ if (localStorage.album) {
 else {tracker.createAlbum();}
 
 tracker.displayPhotos();
+
+var resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', tracker.reset);
