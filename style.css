@@ -88,9 +88,9 @@ section {
 }
 #reset {
   font-size: 20px;
-  border: 1px solid #000;
+  /*border: 1px solid #000;*/
   padding: 10px 10px;
-  margin: auto 50px;
+  text-align: center;
   text-transform: uppercase;
 }
 #reset:hover {
